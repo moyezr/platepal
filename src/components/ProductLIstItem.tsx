@@ -1,25 +1,30 @@
 import { Product } from "@/types";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { Link } from "expo-router";
+import { Link, useSegments } from "expo-router";
 
 export const defaultPizzaImage =
   "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png";
 
-const ProductListItem = ({ data }: { data: Product }) => (
-  <Link href={`/menu/${data.id}`} asChild>
-    <Pressable style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{ uri: data.image || defaultPizzaImage }}
-        alt={data.name}
-        resizeMode="contain"
-      />
-      <Text style={styles.title}>{data.name}</Text>
-      <Text style={styles.price}>${data.price.toFixed(2)}</Text>
-    </Pressable>
-  </Link>
-);
+const ProductListItem = ({ data }: { data: Product }) => {
+  const segments = useSegments();
+
+  return (
+    //@ts-ignore
+    <Link href={`/${segments[0]}/menu/${data.id}`} asChild>
+      <Pressable style={styles.container}>
+        <Image
+          style={styles.image}
+          source={{ uri: data.image || defaultPizzaImage }}
+          alt={data.name}
+          resizeMode="contain"
+        />
+        <Text style={styles.title}>{data.name}</Text>
+        <Text style={styles.price}>${data.price.toFixed(2)}</Text>
+      </Pressable>
+    </Link>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
