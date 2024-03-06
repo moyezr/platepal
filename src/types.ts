@@ -10,7 +10,7 @@ export type PizzaSize = "S" | "M" | "L" | "XL";
 export type CartItem = {
   id: string;
   product: Product;
-  product_id: number;
+  product_id: string;
   size: PizzaSize;
   quantity: number;
 };
