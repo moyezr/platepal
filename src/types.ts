@@ -25,7 +25,7 @@ export const OrderStatusList: OrderStatus[] = [
 export type OrderStatus = "New" | "Cooking" | "Delivering" | "Delivered";
 
 export type Order = {
-  id: number;
+  id: string;
   created_at: string;
   total: number;
   user_id: string;
@@ -35,10 +35,10 @@ export type Order = {
 };
 
 export type OrderItem = {
-  id: number;
-  product_id: number;
+  id: string;
+  product_id: string;
   products: Product;
-  order_id: number;
+  order_id: string;
   size: PizzaSize;
   quantity: number;
 };
