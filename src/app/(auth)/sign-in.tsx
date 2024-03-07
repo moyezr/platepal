@@ -1,26 +1,37 @@
-import Button from "@/components/Button";
-import Colors from "@/constants/Colors";
-import { Link, Stack } from "expo-router";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import Button from "../../components/Button";
+import Colors from "../../constants/Colors";
+import { Link, Stack } from "expo-router";
 
-const SignInScreenF = () => {
+const SignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ title: "Sign In" }} />
+      <Stack.Screen options={{ title: "Sign in" }} />
 
       <Text style={styles.label}>Email</Text>
-      <TextInput placeholder="johndoe@gmail.com" style={styles.input} />
+      <TextInput
+        value={email}
+        onChangeText={setEmail}
+        placeholder="jon@gmail.com"
+        style={styles.input}
+      />
 
       <Text style={styles.label}>Password</Text>
-      <TextInput placeholder="Password" style={styles.input} secureTextEntry />
-      <Button text="Sign In" />
+      <TextInput
+        value={password}
+        onChangeText={setPassword}
+        placeholder=""
+        style={styles.input}
+        secureTextEntry
+      />
 
-      <Link href={"/sign-up"} style={styles.textButton}>
-        Create an Account
+      <Button text="Sign in" />
+      <Link href="/sign-up" style={styles.textButton}>
+        Create an account
       </Link>
     </View>
   );
@@ -28,9 +39,9 @@ const SignInScreenF = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
     padding: 20,
+    justifyContent: "center",
+    flex: 1,
   },
   label: {
     color: "gray",
@@ -52,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignInScreenF;
+export default SignInScreen;
