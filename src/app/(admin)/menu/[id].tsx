@@ -1,3 +1,4 @@
+import { useProduct } from "@/api/products";
 import products from "@/assets/data/products";
 import Button from "@/components/Button";
 import { defaultPizzaImage } from "@/components/ProductLIstItem";
@@ -7,7 +8,7 @@ import { PizzaSize } from "@/types";
 import { FontAwesome } from "@expo/vector-icons";
 import { Link, Stack, useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 type Props = {};
 
@@ -18,19 +19,23 @@ const ProductDetailsScreen = (props: Props) => {
   const { addItem } = useCart();
   const router = useRouter();
 
-  const product = products.find((p) => p.id.toString() === id);
+  const { data: product, error, isLoading } = useProduct(id as string);
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (error) {
+    return <Text>Failed to fetch Products</Text>;
+  }
 
   if (!product) {
     return <Text>Product not found</Text>;
   }
 
-  const addToCart = () => {
-    if (!product) {
-      return;
-    }
-    addItem(product, selectedSize);
-    router.push("/cart");
-  };
+  if (!product) {
+    return <Text>Product not found</Text>;
+  }
+
 
   return (
     <View style={styles.container}>
